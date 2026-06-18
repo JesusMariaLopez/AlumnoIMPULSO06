@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Calculadora aritmética</title>
+    <style>
+      :root{
+        --bg:#eaf4ff;
+        --card:#d5eaff;
+        --primary:#1e90ff;
+        --primary-contrast:#ffffff;
+        --muted:#3b6a9e;
+      }
+      body { font-family: sans-serif; max-width: 640px; margin: 40px auto; background:var(--bg); color:#03304a; }
+      .card { background:var(--card); padding:20px; border-radius:10px; box-shadow:0 6px 18px rgba(14,46,78,0.06); }
+      .row { margin-bottom: 12px; }
+      label { display:block; margin-bottom:6px; color:var(--muted); font-weight:600 }
+      input[type="text"], select { width:100%; padding:10px; box-sizing:border-box; border:1px solid rgba(3,48,74,0.08); border-radius:6px; background: #fff; }
+      button { padding:10px 14px; background:var(--primary); color:var(--primary-contrast); border:none; border-radius:6px; cursor:pointer; }
+      button:hover{ filter:brightness(0.95) }
+      .result { margin-top: 16px; font-weight: bold; color:var(--primary); }
+      .error { margin-top: 12px; color: #b00020; }
+      h1{ color: #03304a }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Calculadora aritmética</h1>
+      <form method="post">
+      <div class="row">
+        <label>Primer número</label>
+        <input type="text" name="a" value="{{ a }}" />
+      </div>
+      <div class="row">
+        <label>Segundo número</label>
+        <input type="text" name="b" value="{{ b }}" />
+      </div>
+      <div class="row">
+        <label>Operación</label>
+        <select name="op">
+          <option value="sum" {% if op=='sum' %}selected{% endif %}>Sumar</option>
+          <option value="sub" {% if op=='sub' %}selected{% endif %}>Restar</option>
+          <option value="mul" {% if op=='mul' %}selected{% endif %}>Multiplicar</option>
+          <option value="div" {% if op=='div' %}selected{% endif %}>Dividir</option>
+        </select>
+      </div>
+        <div class="row">
+          <button type="submit">Calcular</button>
+        </div>
+      </form>
+    </div>
+
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+
+    {% if result is not none %}
+      <div class="result">Resultado: {{ result }}</div>
+    {% endif %}
+
+  </body>
+</html>
